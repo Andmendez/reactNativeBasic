@@ -1,73 +1,108 @@
 import React, {useState} from 'react';
 import { Text, View, StyleSheet, TextInput, TouchableOpacity, Image } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
   
-
+const Stack = createNativeStackNavigator();
 
 const App = () => {
 
   const [userName, onChangeText] = React.useState('Username');
   const [password, onChangePassword] = React.useState('Password');
+  // Pantalla de inicio
+  const HomeScreen = ({navigation}) => {
+    return (
+      <View style={styles.container}>
+        <Text style = {styles.textTitle}>Welcome Back!</Text>
+        <Text style = {styles.textSubTitle}>Please sign in to your account</Text>
+
+
+        <TextInput
+          style = {styles.inputText}
+          onChangeText={onChangeText}
+          placeholder='Username'
+          placeholderTextColor='#6E6D73'
+        />
+
+        <TextInput
+          style = {styles.inputText}
+          onChangeText={onChangePassword}
+          placeholder='Password'
+          secureTextEntry={true}
+          placeholderTextColor='#6E6D73'
+        />
+
+        <View style={styles.forgotText}>
+          <TouchableOpacity  onPress={() => {}}>
+            <Text style={[styles.textSubTitle]}>Forgot Password?</Text>
+          </TouchableOpacity>
+        </View>
+
+        <TouchableOpacity onPress={() => {}} style={[styles.signButton, styles.flexCenterTotal]}>
+          <Text style={styles.signText}>Sign In</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={() => {}} style={[styles.googleAppleButton, styles.flexCenterTotal]}>
+          {/* <Icon name="google" size={24} color="#fff" style={[styles.logoGoogleApple, styles.logos]} /> */}
+          <Image
+          source={require('./assets/google.png')}
+          style={styles.logoGoogle}
+        />
+          <Text style={styles.textSign}>Sign In With Google</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={() => {}} style={[styles.facebookButton, styles.flexCenterTotal]}>
+          <Icon name="facebook" size={24} color="#fff" style={[styles.logoFacebook, styles.logos]} />
+          <Text style={[styles.textSign, styles.textColorFacebook]}>Sign In With Facebook</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={() => {}} style={[styles.googleAppleButton, styles.flexCenterTotal]}>
+          <Icon name="apple" size={24} color="#fff" style={[styles.logoGoogleApple, styles.logos]} />
+          <Text style={styles.textSign}>Sign In With Apple</Text>
+        </TouchableOpacity>
+        
+        <View style={styles.footer}>
+          <Text style={styles.noaccount}>Don't have an account ?</Text>
+          <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
+            <Text style={styles.textSignUp}>Sign Up</Text>
+          </TouchableOpacity>
+
+        </View>
+      </View>
+    );
+  };
+  // Fin de Pantalla de inicio
+
+  const ProfileScreen = ({navigation, route}) => {
+    return <Text>This is thas's profile</Text>;
+  };
+
+  
+
+  
+
+
 
   return(
-    <View style={styles.container}>
-      <Text style = {styles.textTitle}>Welcome Back!</Text>
-      <Text style = {styles.textSubTitle}>Please sign in to your account</Text>
 
-
-      <TextInput
-        style = {styles.inputText}
-        onChangeText={onChangeText}
-        placeholder='Username'
-        placeholderTextColor='#6E6D73'
-      />
-
-      <TextInput
-        style = {styles.inputText}
-        onChangeText={onChangePassword}
-        placeholder='Password'
-        secureTextEntry={true}
-        placeholderTextColor='#6E6D73'
-      />
-
-      <View style={styles.forgotText}>
-        <TouchableOpacity  onPress={() => {}}>
-          <Text style={[styles.textSubTitle]}>Forgot Password?</Text>
-        </TouchableOpacity>
-      </View>
-
-      <TouchableOpacity onPress={() => {}} style={[styles.signButton, styles.flexCenterTotal]}>
-        <Text style={styles.signText}>Sign In</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity onPress={() => {}} style={[styles.googleAppleButton, styles.flexCenterTotal]}>
-        {/* <Icon name="google" size={24} color="#fff" style={[styles.logoGoogleApple, styles.logos]} /> */}
-        <Image
-        source={require('./assets/google.png')}
-        style={styles.logoGoogle}
-       />
-        <Text style={styles.textSign}>Sign In With Google</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity onPress={() => {}} style={[styles.facebookButton, styles.flexCenterTotal]}>
-        <Icon name="facebook" size={24} color="#fff" style={[styles.logoFacebook, styles.logos]} />
-        <Text style={[styles.textSign, styles.textColorFacebook]}>Sign In With Facebook</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity onPress={() => {}} style={[styles.googleAppleButton, styles.flexCenterTotal]}>
-        <Icon name="apple" size={24} color="#fff" style={[styles.logoGoogleApple, styles.logos]} />
-        <Text style={styles.textSign}>Sign In With Apple</Text>
-      </TouchableOpacity>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen
+          name="Home"
+          component={HomeScreen}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen 
+          name="Profile"
+          component={ProfileScreen}
+          options={{headerShown: false}}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
+    
       
-      <View style={styles.footer}>
-        <Text style={styles.noaccount}>Don't have an account ?</Text>
-        <TouchableOpacity onPress={() => {}}>
-          <Text style={styles.textSignUp}>Sign Up</Text>
-        </TouchableOpacity>
-
-      </View>
-    </View>
     
   );
 };
