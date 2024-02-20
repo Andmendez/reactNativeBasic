@@ -9,10 +9,15 @@ const Stack = createNativeStackNavigator();
 
 const App = () => {
 
-  const [userName, onChangeText] = React.useState('Username');
-  const [password, onChangePassword] = React.useState('Password');
+  
+  
+
   // Pantalla de inicio
   const HomeScreen = ({navigation}) => {
+
+    const [userName, onChangeText] = React.useState('Username');
+    const [password, onChangePassword] = React.useState('Password');
+
     return (
       <View style={styles.container}>
         <Text style = {styles.textTitle}>Welcome Back!</Text>
@@ -65,7 +70,7 @@ const App = () => {
         
         <View style={styles.footer}>
           <Text style={styles.noaccount}>Don't have an account ?</Text>
-          <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
+          <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
             <Text style={styles.textSignUp}>Sign Up</Text>
           </TouchableOpacity>
 
@@ -75,10 +80,59 @@ const App = () => {
   };
   // Fin de Pantalla de inicio
 
-  const ProfileScreen = ({navigation, route}) => {
-    return <Text>This is thas's profile</Text>;
-  };
+  // Inicio de Pantalla de Registro
+  const SignUpScreen = ({navigation}) => {
 
+    const [userName, onChangeText] = React.useState('Username');
+    const [password, onChangePassword] = React.useState('Password');
+    const [email, onChangeEmail] = React.useState('Email');
+    return (
+      <View style={styles.container}>
+        <Text style = {styles.textTitle}>Create New Account</Text>
+        <Text style = {styles.textSubTitle}>Please fill in the form to continue</Text>
+
+
+        <TextInput
+          style = {styles.inputText}
+          onChangeText={onChangeText}
+          placeholder='Full Name'
+          placeholderTextColor='#6E6D73'
+        />
+
+        <TextInput
+          style = {styles.inputText}
+          onChangeText={onChangeEmail}
+          placeholder='Email Address'
+          placeholderTextColor='#6E6D73'
+        />
+
+        <TextInput
+          style = {styles.inputText}
+          onChangeText={onChangePassword}
+          placeholder='Password'
+          secureTextEntry={true}
+          placeholderTextColor='#6E6D73'
+        />
+
+        
+
+        <TouchableOpacity onPress={() => {}} style={[styles.signButton, styles.flexCenterTotal, styles.marginTopMore]}>
+          <Text style={styles.signText}>Sign In</Text>
+        </TouchableOpacity>
+
+        
+        
+        <View style={styles.footer}>
+          <Text style={styles.noaccount}>Have an account?</Text>
+          <TouchableOpacity onPress={() => navigation.navigate('Home')}>
+            <Text style={styles.textSignUp}>Sign In</Text>
+          </TouchableOpacity>
+
+        </View>
+      </View>
+    );
+  };
+  // Fin de Pantalla de Registro
   
 
   
@@ -88,15 +142,17 @@ const App = () => {
   return(
 
     <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator screenOptions={{ animation: 'slide_from_left' }}>
+
         <Stack.Screen
           name="Home"
           component={HomeScreen}
           options={{headerShown: false}}
         />
+
         <Stack.Screen 
-          name="Profile"
-          component={ProfileScreen}
+          name="SignUp"
+          component={SignUpScreen}
           options={{headerShown: false}}
         />
       </Stack.Navigator>
@@ -131,17 +187,9 @@ const styles = StyleSheet.create({
   noaccount : {color: '#fff', textTransform: 'capitalize'},
   footer: {flexDirection: 'row', marginTop: 10, alignItems: 'center'},
 
+  marginTopMore: {marginTop: 320, marginBottom: 10},
 
 
-
-  
-
-
-  button: {backgroundColor: 'aquamarine', padding: 10, width: 300, marginTop: 50, borderRadius: 10 },
-  buttonColumn: {backgroundColor: 'aquamarine', padding: 10, width: 150, marginTop: 50, borderRadius: 10},
-  buttonText: {fontSize: 20, textAlign: 'center', textTransform: 'uppercase', fontStyle: 'italic'},
-  marginColumn: {marginEnd: 10},
-  columnButton: {flexDirection: 'row'}
 })
 
 export default App
