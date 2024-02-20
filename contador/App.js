@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState} from 'react';
 import { Text, View, StyleSheet, Button, Alert } from "react-native";
 
 // useState(0) inicializa el estado contador con un valor inicial de 0. setContador es una función que se utiliza para actualizar el estado contador.
@@ -48,3 +48,10 @@ const styles = StyleSheet.create({
 
 
 export default App
+
+
+
+
+
+
+
